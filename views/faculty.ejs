@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+<script>
+var semesterObject = {
+  "First": {
+    "MA143"     : ["PRM", "NCP"],
+    "CE143"     : ["APC","MJP"],
+    "EE145"     : ["DAD","PBP"] ,
+    "IT144"     : ["BBP","PSP"],
+    "PY142"     : ["USS","SDK"],
+    "FS102A"    : ["MO","VHP"],
+    "HS101.02A" : ["CD","RU"]  
+  },
+  "Second": {
+    "MA144"     : ["RVS", "YFP"],
+    "CE144"     : ["MJP", "APC"],
+    "ME145"     : ["SC" , "VHP" , "MJD" , "NHR" , "HB"],
+    "CL144.02A" : ["GKR", "SCP"],
+    "PY143"     : ["SDK", "USS" , "SRP"],
+    "FS102A"    : [],
+  },
+  "Third":{
+    "MA253"     : ["YFP","PKP"],
+    "CE252"     : ["AJS","AYT"],
+    "CE257"     : ["RPP","DBT"],
+    "CE244"     : ["NMB","SAP"],
+    "HS121.02A" : ["DAB","MJP"],
+    "CE251"     : ["RRP","MLR"]
+  }
+}
+window.onload = function() {
+  var semesterSel = document.getElementById("semester");
+  var subjectSel = document.getElementById("subject");
+  var facultySel = document.getElementById("faculty");
+  for (var x in semesterObject) {
+    semesterSel.options[semesterSel.options.length] = new Option(x, x);
+  }
+  semesterSel.onchange = function() {
+ //empty faculty- and Subject- dropdowns
+     facultySel.length = 1;
+    subjectSel.length = 1;
+    //display correct values
+    for (var y in semesterObject[this.value]) {
+      subjectSel.options[subjectSel.options.length] = new Option(y, y);
+    }
+  }
+  subjectSel.onchange = function() {
+     //empty faculty dropdown
+     facultySel.length = 1;
+    //display correct values
+    var z = semesterObject[semesterSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      facultySel.options[facultySel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+<link rel="stylesheet" href="/css/faculty.css">
+</head>   
+<body>
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand navfont" href="#">Helping Hands</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav navspace">
+              <a class="nav-link" href="/">Home</a>
+              <a class="nav-link" href="/scholarship">Scholarship</a>
+              <a class="nav-link active" href="/facultytimetable">Faculty Timetable</a>
+              <a class="nav-link" href="/material">Material</a>
+            </div>
+            <div>
+                <a href="/contact">
+            <button type="button" class="btn btn-warning">Contact Us</button>
+        </a>
+          </div>
+        </div>
+      </nav>
+      <div class="main"> 
+        <h1 style="text-align:center;">Faculty Schedule</h1>
+<form name="form1" id="form1" action="/facultytimetable" method="post">
+    <div class="form-group">
+        <label class="abc form-control-lg">Semester:</label>
+        <select name="semester" id="semester" class="form-control-sm xyz" required>
+            <option value="" selected="selected" >Please select Semester</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="abc form-control-lg">Subject:</label>
+        <select name="subject" id="subject" class="form-control-sm xyz" required>
+             <option value="" selected="selected">Please select subject first</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="abc form-control-lg">Faculty Name:</label>
+        <select name="faculty" id="faculty" class="form-control-sm xyz" required>
+            <option value="" selected="selected">Please select Faculty name</option>
+        </select>
+    </div>
+    <div style="text-align: center;">
+    <button type="submit" class="btn btn-warning sub">Show Timetable</button>
+    </div>
+</form>
+</div>
+</header>
+</body>
+</html>
